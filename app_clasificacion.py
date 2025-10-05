@@ -58,9 +58,13 @@ processed_input_data = processed_input_data.reindex(columns=expected_columns, fi
 
 
 # Make prediction
-if st.button('Predict Grade'): # Changed button text
+if st.button('Predict Grade'):
+    # Realizar la predicción
     prediction = prediction_model.predict(processed_input_data)
 
-    st.subheader('Predicted Grade') # Changed subheader
-    # Assuming the prediction is a single numerical value
-    st.write(f'The predicted grade is: {prediction[0]:.2f}') # Display predicted numerical grade
+    # Asegurar que sea un número flotante limpio
+    predicted_value = float(prediction[0])
+
+    # Mostrar resultado formateado con 2 decimales
+    st.subheader('Predicted Grade')
+    st.markdown(f"<h3 style='text-align:center; color:green;'>🎯 {predicted_value:.2f}</h3>", unsafe_allow_html=True)
