@@ -62,9 +62,15 @@ if st.button('Predict Grade'):
     # Realizar la predicción
     prediction = prediction_model.predict(processed_input_data)
 
-    # Aplanar y convertir a float
-    predicted_value = float(np.ravel(prediction)[0])
+    # 🔍 Depuración opcional (puedes comentar estas líneas después)
+    st.write("Predicción cruda:", prediction)
+    st.write("Tipo:", type(prediction))
 
-    # Mostrar resultado con formato limpio
-    st.subheader('Predicted Grade')
-    st.markdown(f"<h3 style='text-align:center; color:green;'>🎯 {predicted_value:.2f}</h3>", unsafe_allow_html=True)
+    # Extraer el valor real, sin importar el formato
+    try:
+        predicted_value = float(np.array(prediction).flatten()[0])
+        st.subheader('Predicted Grade')
+        st.markdown(f"<h3 style='text-align:center; color:green;'>{predicted_value:.2f}</h3>", unsafe_allow_html=True)
+    except Exception as e:
+        st.error(f"Error al procesar la predicción: {e}")
+        st.stop()
