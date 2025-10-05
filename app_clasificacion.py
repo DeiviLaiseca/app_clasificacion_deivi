@@ -62,9 +62,9 @@ if st.button('Predict Grade'):
     # Realizar la predicción
     prediction = prediction_model.predict(processed_input_data)
 
-    # Asegurar que sea un número flotante limpio
-    predicted_value = float(prediction[0])
+    # Aplanar y convertir a float
+    predicted_value = float(np.ravel(prediction)[0])
 
-    # Mostrar resultado formateado con 2 decimales
+    # Mostrar resultado con formato limpio
     st.subheader('Predicted Grade')
     st.markdown(f"<h3 style='text-align:center; color:green;'>🎯 {predicted_value:.2f}</h3>", unsafe_allow_html=True)
